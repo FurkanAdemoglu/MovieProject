@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface MovieShowService {
 
-    @GET
+    @GET("/")
     suspend fun search(@Query("s") searchText:String,@Query("apikey") omdb_api_key:String=OMDB_API_KEY):Response<Search>
 
 }

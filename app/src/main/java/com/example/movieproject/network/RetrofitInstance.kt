@@ -17,7 +17,7 @@ class RetrofitInstance {
                 .addInterceptor(logging)
                 .build()
             Retrofit.Builder()
-                .baseUrl("http://www.omdbapi.com/")
+                .baseUrl("https://www.omdbapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

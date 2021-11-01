@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -40,6 +41,7 @@ class ListViewModel(
                 searchNews.postValue(Resource.Error("No internet connection"))
             }
         }catch (t:Throwable){
+            Log.v("Error",t.toString())
             when(t){
                 is IOException ->searchNews.postValue(Resource.Error("Network Failure"))
                 else->searchNews.postValue(Resource.Error("Conversion Error"))
@@ -59,7 +61,7 @@ class ListViewModel(
                     val newArticles=resultResponse.resultSearch
                     oldArticles?.addAll(newArticles)
                 }
-                return Resource.Success(searchNewsResponse?:resultResponse)
+                return Resource.Success(resultResponse)
             }
         }
         return Resource.Error(response.message())
