@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.movieproject.R
 
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
+
 
 }
