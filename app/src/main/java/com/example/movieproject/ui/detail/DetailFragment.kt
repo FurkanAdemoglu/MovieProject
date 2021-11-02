@@ -37,7 +37,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                             .load(search.poster)
                             .into(imageViewMovie)
                         textViewMovieName.text=search.title
-                        textViewMovieTitle.text=search.plot
+                        textViewMovieOverview.text=search.plot
                     } }
                 is Resource.Error->{
                     hideProgressBar()

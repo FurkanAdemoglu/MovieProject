@@ -69,6 +69,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.7.2"
+
 
 
     //viewmodel fragment lifecycle implementation

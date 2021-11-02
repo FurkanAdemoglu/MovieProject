@@ -1,5 +1,6 @@
 package com.example.movieproject.ui.list
 
+import android.animation.Animator
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieproject.MainActivity
 import com.example.movieproject.R
 import com.example.movieproject.adapter.ListAdapter
+import com.example.movieproject.ext.hideKeyboard
 import com.example.movieproject.util.Constants.SEARCH_MOVIES_TIME_DELAY
 import com.example.movieproject.util.Resource
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -31,10 +33,22 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         setupRecyclerView()
 
         listAdapter.setOnItemClickListener {
-            val action=ListFragmentDirections.actionListFragmentToDetailFragment(it.imdbID)
-            findNavController().navigate(action)
+            hideKeyboard()
+            listToFixtureAnimation.visibility = View.VISIBLE
+            rvSearchNews.visibility=View.GONE
+            etSearch.visibility=View.GONE
+           listToFixtureAnimation.setAnimation(R.raw.movie)
+            listToFixtureAnimation.playAnimation()
+            listToFixtureAnimation.addAnimatorListener(object :
+                Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator?) {}
+                override fun onAnimationEnd(animation: Animator?) {
+                    val action=ListFragmentDirections.actionListFragmentToDetailFragment(it.imdbID)
+                    findNavController().navigate(action)
+                }
+                override fun onAnimationCancel(animation: Animator?) {}
+                override fun onAnimationRepeat(animation: Animator?) {} })
         }
-
         var job: Job?=null
         etSearch.addTextChangedListener { editable->
             job?.cancel()
