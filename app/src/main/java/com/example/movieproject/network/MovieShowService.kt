@@ -12,4 +12,7 @@ interface MovieShowService {
     @GET("/")
     suspend fun search(@Query("s") searchText:String,@Query("apikey") omdb_api_key:String=OMDB_API_KEY):Response<Search>
 
+    @GET("/")
+    suspend fun getMovieById(@Query("i") movieId: String, @Query("apikey") ombd_api_key: String = OMDB_API_KEY): Response<movie>
+
 }

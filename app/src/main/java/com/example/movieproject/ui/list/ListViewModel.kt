@@ -7,6 +7,7 @@ import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -23,59 +24,49 @@ class ListViewModel(
     app:Application,
     val movieRepository: MovieRepository
 ):AndroidViewModel(app) {
-    val searchNews:MutableLiveData<Resource<Search>> = MutableLiveData()
-    var searchNewsPage=1
-    var searchNewsResponse:Search?=null
+    val searchMovies:MutableLiveData<Resource<Search>> = MutableLiveData()
+    var searchMovieResponse:Search?=null
 
     fun searchNews(searchQuery:String)=viewModelScope.launch {
         safeSearchNewsCall(searchQuery)
     }
 
     private suspend fun safeSearchNewsCall(searchQuery: String){
-        searchNews.postValue(Resource.Loading())
+        searchMovies.postValue(Resource.Loading())
         try{
             if(hasInternetConnection()){
                 val response=movieRepository.searchNews(searchQuery)
-                searchNews.postValue(handleSearchNewsResponse(response))
+                searchMovies.postValue(handleSearchNewsResponse(response))
             }else{
-                searchNews.postValue(Resource.Error("No internet connection"))
+                searchMovies.postValue(Resource.Error("No internet connection"))
             }
         }catch (t:Throwable){
-            Log.v("Error",t.toString())
             when(t){
-                is IOException ->searchNews.postValue(Resource.Error("Network Failure"))
-                else->searchNews.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-    }
+                is IOException ->searchMovies.postValue(Resource.Error("Network Failure"))
+                else->searchMovies.postValue(Resource.Error("Conversion Error"))
+            } } }
 
 
     private fun handleSearchNewsResponse(response: Response<Search>):Resource<Search>{
         if(response.isSuccessful){
             response.body()?.let { resultResponse->
-                searchNewsPage++
-                if(searchNewsResponse==null){
-                    searchNewsResponse=resultResponse
+                if(searchMovieResponse==null){
+                    searchMovieResponse=resultResponse
                 }else{
-                    val oldArticles=searchNewsResponse?.resultSearch
+                    val oldArticles=searchMovieResponse?.resultSearch
                     val newArticles=resultResponse.resultSearch
                     oldArticles?.addAll(newArticles)
                 }
-                return Resource.Success(resultResponse)
-            }
-        }
-        return Resource.Error(response.message())
-    }
+                return Resource.Success(resultResponse) } }
 
+        return Resource.Error(response.message()) }
     private fun hasInternetConnection():Boolean{
         val connectivityManager=getApplication<MovieApplication>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
-
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
             val activeNetwork=connectivityManager.activeNetwork?:return false
             val capabilities=connectivityManager.getNetworkCapabilities(activeNetwork)?:return false
-
             return when{
                 capabilities.hasTransport(TRANSPORT_WIFI)->true
                 capabilities.hasTransport(TRANSPORT_CELLULAR)->true
@@ -89,9 +80,5 @@ class ListViewModel(
                     TYPE_MOBILE->true
                     TYPE_ETHERNET->true
                     else->false
-                }
-            }
-        }
-        return false
-    }
-}
+                } } }
+        return false } }

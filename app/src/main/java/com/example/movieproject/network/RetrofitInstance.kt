@@ -1,5 +1,6 @@
 package com.example.movieproject.network
 
+import com.example.movieproject.util.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,14 +18,9 @@ class RetrofitInstance {
                 .addInterceptor(logging)
                 .build()
             Retrofit.Builder()
-                .baseUrl("https://www.omdbapi.com/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
-                .build()
-        }
-
+                .build() }
         val api by lazy {
-            retrofit.create(MovieShowService::class.java)
-        }
-    }
-}
+            retrofit.create(MovieShowService::class.java) } } }
