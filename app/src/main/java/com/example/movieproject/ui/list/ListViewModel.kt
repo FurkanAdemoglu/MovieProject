@@ -71,8 +71,7 @@ class ListViewModel(
                 capabilities.hasTransport(TRANSPORT_WIFI)->true
                 capabilities.hasTransport(TRANSPORT_CELLULAR)->true
                 capabilities.hasTransport(TRANSPORT_ETHERNET)->true
-                else->false
-            }
+                else->false }
         }else{
             connectivityManager.activeNetworkInfo?.run {
                 return when(type){

@@ -13,8 +13,4 @@ class DetailViewModelProviderFactory(
     val movieRepository: MovieRepository
 ) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DetailViewModel(app,movieRepository) as T
-    }
-
-
-}
+        return DetailViewModel(app,movieRepository) as T } }

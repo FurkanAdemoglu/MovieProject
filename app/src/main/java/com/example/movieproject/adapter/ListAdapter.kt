@@ -17,8 +17,8 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MovieViewHolder>() {
 
     private val differCallback=object : DiffUtil.ItemCallback<movie>(){
         override fun areItemsTheSame(oldItem: movie, newItem: movie): Boolean {
-            return oldItem.imdbID==newItem.imdbID
-        }
+            return oldItem.imdbID==newItem.imdbID }
+
         override fun areContentsTheSame(oldItem: movie, newItem: movie): Boolean {
             return oldItem==newItem
         } }

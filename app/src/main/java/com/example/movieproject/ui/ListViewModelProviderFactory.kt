@@ -12,7 +12,4 @@ class ListViewModelProviderFactory(
 ) :ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return ListViewModel(app,movieRepository) as T
-    }
-
-
-}
+    } }

@@ -52,13 +52,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun hideProgressBar(){
         paginationProgressBarDetail.visibility=View.INVISIBLE
-        isLoading=false
-    }
+        isLoading=false }
 
     private fun showProgressBar(){
         paginationProgressBarDetail.visibility=View.VISIBLE
-        isLoading=true
-    }
-
+        isLoading=true }
     var isLoading=false
 }

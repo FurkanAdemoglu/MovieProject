@@ -31,7 +31,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
         viewModel=(activity as MainActivity).viewModel
         setupRecyclerView()
-
         listAdapter.setOnItemClickListener {
             hideKeyboard()
             listToFixtureAnimation.visibility = View.VISIBLE
